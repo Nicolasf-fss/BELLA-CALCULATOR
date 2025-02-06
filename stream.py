@@ -32,14 +32,12 @@ def calcular_rango(datos):
     return np.max(datos) - np.min(datos)  # Calcula la diferencia entre el máximo y el mínimo
 
 # Función para calcular la varianza de una lista de números
-def calcular_varianza(datos, poblacional=False):
-    ddof = 0 if poblacional else 1  # Define el grado de libertad (0 para población, 1 para muestra)
-    return np.var(datos, ddof=ddof)  # Usa numpy para calcular la varianza
+def calcular_varianza(datos): 
+    return np.var(datos)  # Usa numpy para calcular la varianza
 
 # Función para calcular la desviación estándar de una lista de números
-def calcular_desviacion_estandar(datos, poblacional=False):
-    ddof = 0 if poblacional else 1  # Define el grado de libertad (0 para población, 1 para muestra)
-    return np.std(datos, ddof=ddof)  # Usa numpy para calcular la desviación estándar
+def calcular_desviacion_estandar(datos): 
+    return np.std(datos)  # Usa numpy para calcular la desviación estándar
 
 # Función para calcular la derivada de una expresión simbólica
 def derivar_expresion(expresion):
@@ -77,17 +75,17 @@ def input_matriz(nombre):
 
 # Función principal de la aplicación
 def main():
-    st.set_page_config(page_title="BELLA - Calculadora", layout="centered")  # Configura la página de Streamlit
-    st.title("Calculadora BELLA")  # Título de la aplicación
+    st.set_page_config(page_title="BELLA - Calculadora", layout="centered", page_icon="🐈")  # Configura la página de Streamlit
+    st.title("Calculadora - BELLA")  # Título de la aplicación
     
     tabs = st.tabs(["Calculo", "Tendencia central", "Calculos de dispersion", "Derivadas", "Operaciones Matriciales"])  # Crea pestañas en la interfaz
 
     # Pestaña de cálculos simples
     with tabs[0]:
         st.subheader("Calculos Simples")  # Subtítulo de la pestaña
-        expresion_derivada = st.text_input("Ingrese una operacion matematica simple (2*3/4)")  # Entrada de texto para la expresión
+        expresion = st.text_input("Ingrese una operacion matematica simple (2*3/4)")  # Entrada de texto para la expresión
         if st.button("Calcular"):  # Botón para calcular
-            resultado = calcular_expresion(expresion_derivada)  # Calcula la expresión
+            resultado = calcular_expresion(expresion)  # Calcula la expresión
             progress_text = "Cargando operacion"  # Texto para la barra de progreso
             my_bar = st.progress(0, text=progress_text)  # Crea una barra de progreso
             for percent_complete in range(100):
@@ -105,13 +103,17 @@ def main():
         datos = st.text_input("Ingrese los datos separados por comas (ejemplo: 1, 2, 3, 4, 5)")  # Entrada de datos
         if st.button("Calcular tendencia"):  # Botón para calcular
             try:
-                datos = [float(x) for x in datos.split(",")]  # Convierte los datos a una lista de números
+                numeros = datos.split(",") # Convierte los datos a una lista de números
+                lista_numeros = []
+                for numero in numeros:
+                    lista_numeros.append(float(numero)) 
+
                 if opcion == "Media":
-                    resultado = calcular_media(datos)  # Calcula la media
+                    resultado = calcular_media(lista_numeros)  # Calcula la media
                 elif opcion == "Mediana":
-                    resultado = calcular_mediana(datos)  # Calcula la mediana
+                    resultado = calcular_mediana(lista_numeros)  # Calcula la mediana
                 elif opcion == "Moda":
-                    resultado = calcular_moda(datos)  # Calcula la moda
+                    resultado = calcular_moda(lista_numeros)  # Calcula la moda
                 
                 progress_text = "Cargando operacion"  # Texto para la barra de progreso
                 my_bar = st.progress(0, text=progress_text)  # Crea una barra de progreso
@@ -132,13 +134,16 @@ def main():
         
         if st.button("Calcular dispersión"):  # Botón para calcular
             try:
-                datos_dispersion = [float(x) for x in datos_dispersion.split(",")]  # Convierte los datos a una lista de números
+                numeros_dis = datos_dispersion.split(",") # Convierte los datos a una lista de números
+                lista_numeros_dis = []
+                for numero in numeros_dis:
+                    lista_numeros_dis.append(float(numero))  # Convierte los datos a una lista de números
                 if opcion_dispersion == "Rango":
-                    resultado = calcular_rango(datos_dispersion)  # Calcula el rango
+                    resultado = calcular_rango(lista_numeros_dis)  # Calcula el rango
                 elif opcion_dispersion == "Varianza":
-                    resultado = calcular_varianza(datos_dispersion)  # Calcula la varianza
+                    resultado = calcular_varianza(lista_numeros_dis)  # Calcula la varianza
                 elif opcion_dispersion == "Desviación estándar":
-                    resultado = calcular_desviacion_estandar(datos_dispersion)  # Calcula la desviación estándar
+                    resultado = calcular_desviacion_estandar(lista_numeros_dis)  # Calcula la desviación estándar
                 
                 progress_text = "Cargando operación"  # Texto para la barra de progreso
                 my_bar = st.progress(0, text=progress_text)  # Crea una barra de progreso
