@@ -172,7 +172,7 @@ def main():
             st.write(f"Resultado: {resultado}")  # Muestra el resultado   
 
     # pestaña operaciones matriciales
-        with tabs[4]:
+    with tabs[4]:
         st.subheader("Operaciones Matriciales")  # Subtítulo de la pestaña
         st.write("Ingrese las matrices en la cuadrícula")  # Instrucciones para el usuario
         matriz_a = input_matriz("Matriz A")  # Crea la matriz A
