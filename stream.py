@@ -171,15 +171,18 @@ def main():
             my_bar.empty()  # Limpia la barra de progreso
             st.write(f"Resultado: {resultado}")  # Muestra el resultado   
 
-    # Pestaña de operaciones matriciales
-   matriz_a = input_matriz("Matriz A")  # Crea la matriz A
+    # pestaña operaciones matriciales
+        with tabs[4]:
+        st.subheader("Operaciones Matriciales")  # Subtítulo de la pestaña
+        st.write("Ingrese las matrices en la cuadrícula")  # Instrucciones para el usuario
+        matriz_a = input_matriz("Matriz A")  # Crea la matriz A
         st.write("Matriz A:")  # Muestra la matriz A
         st.dataframe(matriz_a)  # Usa un dataframe para mostrar la matriz
-        
+
         matriz_b = input_matriz("Matriz B")  # Crea la matriz B
         st.write("Matriz B:")  # Muestra la matriz B
         st.dataframe(matriz_b)  # Usa un dataframe para mostrar la matriz
-        
+
         operacion = st.selectbox("Seleccione la operación", ["Suma", "Resta", "Multiplicación"])  # Selector de operaciones
         if st.button("Calcular Matriz"):  # Botón para calcular
             resultado = operar_matrices(matriz_a, matriz_b, operacion)  # Realiza la operación matricial
@@ -192,7 +195,6 @@ def main():
             my_bar.empty()  # Limpia la barra de progreso
             st.write("Resultado:")  # Muestra el resultado
             st.dataframe(resultado)  # Usa un dataframe para mostrar el resultado
-
 
 # Punto de entrada de la aplicación
 if __name__ == "__main__":
